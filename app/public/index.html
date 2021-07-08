@@ -1,0 +1,35 @@
+{% extends layout.html %}
+
+{% block title %}{{ $title }}{% endblock %}
+
+{% block content %}
+<ul>
+	<div id="gradient" />
+		<div id="loader" class="center"></div> 
+			<div class="imgbox">
+				<center><h1 class> A Picture of a Shiba </h1></center>
+				<img class="center-fit" src='{{ $image }}'>
+				<div class="button-div">
+					<button type="button" class="btn btn-secondary btn-lg btn-block" onClick="history.go(0);">Next Shiba <i class="fas fa-arrow-right"></i></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</ul>
+<script> 
+    document.onreadystatechange = function() { 
+        if (document.readyState !== "complete") { 
+            document.querySelector( 
+              "body").style.visibility = "hidden"; 
+            document.querySelector( 
+              "#loader").style.visibility = "visible"; 
+        } else { 
+            document.querySelector( 
+              "#loader").style.display = "none"; 
+            document.querySelector( 
+              "body").style.visibility = "visible"; 
+        } 
+    }; 
+</script> 
+
+{% endblock %}
