@@ -1,9 +1,9 @@
 {
-  "family": "shibaapp",
+  "family": "custom",
   "executionRoleArn": "arn:aws:iam::511353949006:role/ecsTaskExecutionRole",
   "containerDefinitions": [
       {
-          "name": "shibaapp-container",
+          "name": "custom",
           "image": "511353949006.dkr.ecr.eu-west-1.amazonaws.com/docker-php",
           "cpu": 256,
           "portMappings": [
@@ -18,7 +18,7 @@
           "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
-              "awslogs-group": "/ecs/shibaapp",
+              "awslogs-group": "/ecs/custom",
               "awslogs-region": "eu-west-1",
               "awslogs-stream-prefix": "ecs"
             }
