@@ -2,21 +2,21 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-resource "aws_ecr_repository" "shiba-app" {
-  name = "shiba-app" 
+resource "aws_ecr_repository" "shiba_php_app" {
+  name = "shiba_php_app" 
 }
 
-resource "aws_ecs_cluster" "shiba-cluster" {
-  name = "shiba-cluster" 
+resource "aws_ecs_cluster" "prd01_shiba_cluster" {
+  name = "prd01_shiba_cluster" 
 }
 
-resource "aws_ecs_task_definition" "shiba_container" {
-  family                   = "shiba_container" 
+resource "aws_ecs_task_definition" "prod01_shiba_task" {
+  family                   = "prod01_shiba_task" 
   container_definitions    = <<DEFINITION
   [
     {
-      "name": "shiba_container",
-      "image": "${aws_ecr_repository.shiba-app.repository_url}",
+      "name": "prod01_shiba_task",
+      "image": "${aws_ecr_repository.shiba_php_app.repository_url}",
       "essential": true,
       "portMappings": [
         {
@@ -74,14 +74,14 @@ resource "aws_default_subnet" "default_subnet_c" {
 }
 resource "aws_ecs_service" "shiba_service" {
   name            = "shiba_service"                             
-  cluster         = "${aws_ecs_cluster.shiba-cluster.id}"             
-  task_definition = "${aws_ecs_task_definition.shiba_container.arn}" 
+  cluster         = "${aws_ecs_cluster.prd01_shiba_cluster.id}"             
+  task_definition = "${aws_ecs_task_definition.prod01_shiba_task.arn}" 
   launch_type     = "FARGATE"
   desired_count   = 3 
 
   load_balancer {
     target_group_arn = "${aws_lb_target_group.target_group.arn}" 
-    container_name   = "${aws_ecs_task_definition.shiba_container.family}"
+    container_name   = "${aws_ecs_task_definition.prod01_shiba_task.family}"
     container_port   = 80 
   }
 
@@ -111,7 +111,7 @@ resource "aws_security_group" "service_security_group" {
 
 
 resource "aws_alb" "application_load_balancer" {
-  name               = "shiba-lb" 
+  name               = "prod01-shiba-lb" 
   load_balancer_type = "application"
   subnets = [ 
     "${aws_default_subnet.default_subnet_a.id}",
