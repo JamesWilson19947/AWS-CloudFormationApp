@@ -15,7 +15,6 @@
           ],
           "memory": 512,
           "essential": true,
-          }
       }
   ],
   "requiresCompatibilities": [
