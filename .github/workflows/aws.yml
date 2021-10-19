@@ -1,7 +1,7 @@
 
 on:
-  release:
-    types: [created]
+ pull_request:
+    types: [closed]
 
 name: Deploy to Amazon ECS
 
@@ -30,7 +30,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: shiba-app
+        ECR_REPOSITORY: shiba_php_app
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build a docker container and
@@ -53,5 +53,5 @@ jobs:
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: shiba_service
-        cluster: shiba-cluster
+        cluster: prd01_shiba_cluster
         wait-for-service-stability: true
