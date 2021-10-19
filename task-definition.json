@@ -1,5 +1,5 @@
 {
-  "family": "prod01_shiba_task.prod01_shiba_task.family",
+  "family": "prod01_shiba_task",
   "executionRoleArn": "arn:aws:iam::076191495566:role/ecsTaskExecutionRole",
   "containerDefinitions": [
       {
